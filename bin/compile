@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+# change to build dir
+cd $1
+
+# make target dir
+mkdir -p vendor
+
+for PROGRAM in muscle clustalw2 clustalo
+do
+  echo "  -----> Installing ${PROGRAM}"
+  # download from s3
+  curl https://s3-us-west-2.amazonaws.com/sif-sprint/alignment_algorithms/${PROGRAM}_linux.tar.gz -L -o ${PROGRAM}.tar.gz
+  # unzip
+  tar -C vendor -xvzf ${PROGRAM}.tar.gz
+  # clean up
+  rm ${PROGRAM}.tar.gz
+  echo "  -----> ${PROGRAM} finished successfully"
+
+done
+
+# add profile-d scripts to set up PATH
+echo "-----> Setting up PATH"
+mkdir -p .profile.d
+echo 'PATH=$PATH:$HOME/vendor' > .profile.d/alignment_algorithms.sh
