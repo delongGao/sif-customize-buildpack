@@ -20,6 +20,22 @@ do
 
 done
 
+echo "-----> Copying Chromosome Files"
+# download from s3
+curl https://s3-us-west-2.amazonaws.com/sif-static-files/genome_files/chromosomes.tar.gz -L -o chromosomes.tar.gz
+mkdir tmp/chromosomes
+# unzip
+tar -C tmp/chromosomes -xvzf chromosomes.tar.gz
+# clean up
+rm chromosomes.tar.gz
+echo "  -----> Copying Chomosome files finished successfully"
+
+echo "  -----> Installing casoffinder"
+curl https://s3-us-west-2.amazonaws.com/sif-static-files/analysis_algorithms/cas-offinder -L -o casoffinder.tar.gz
+tar -C vendor -xvzf casoffinder.tar.gz
+rm casoffinder.tar.gz
+echo "  -----> casoffinder finished successfully"
+
 # add profile-d scripts to set up PATH
 echo "-----> Setting up PATH"
 mkdir -p .profile.d
