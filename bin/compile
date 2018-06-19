@@ -31,8 +31,9 @@ rm chromosomes.tar.gz
 echo "  -----> Copying Chomosome files finished successfully"
 
 echo "  -----> Installing casoffinder"
-curl https://s3-us-west-2.amazonaws.com/sif-static-files/analysis_algorithms/casoffinder.tar.gz -L -o casoffinder.tar.gz
+curl https://s3-us-west-2.amazonaws.com/sif-static-files/analysis_algorithms/casoffinder_linux.tar.gz -L -o casoffinder.tar.gz
 tar -C vendor -xvzf casoffinder.tar.gz
+chmod u+x vendor/cas-offinder
 rm casoffinder.tar.gz
 echo "  -----> casoffinder finished successfully"
 
