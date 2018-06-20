@@ -30,6 +30,17 @@ tar -C tmp/chromosomes -xvzf chromosomes.tar.gz
 rm chromosomes.tar.gz
 echo "  -----> Copying Chomosome files finished successfully"
 
+echo "  -----> Installing casoffinder dependencies (opencl)"
+# ref: http://registrationcenter-download.intel.com/akdlm/irc_nas/11396/SRB5.0_intel-opencl-installation.pdf
+#      https://software.intel.com/en-us/articles/opencl-drivers#latest_CPU_runtime
+sudo apt-get install xz-utils
+mkdir intel-opencl
+tar -C intel-opencl -Jxf intel-opencl-r5.0-BUILD_ID.x86_64.tar.xz
+tar -C intel-opencl -Jxf intel-opencl-devel-r5.0-BUILD_ID.x86_64.tar.xz
+tar -C intel-opencl -Jxf intel-opencl-cpu-r5.0-BUILD_ID.x86_64.tar.xz
+sudo cp -R intel-opencl/* /
+sudo ldconfig
+
 echo "  -----> Installing casoffinder"
 curl https://s3-us-west-2.amazonaws.com/sif-static-files/analysis_algorithms/casoffinder_linux.tar.gz -L -o casoffinder.tar.gz
 tar -C vendor -xvzf casoffinder.tar.gz
