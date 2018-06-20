@@ -33,13 +33,15 @@ echo "  -----> Copying Chomosome files finished successfully"
 echo "  -----> Installing casoffinder dependencies (opencl)"
 # ref: http://registrationcenter-download.intel.com/akdlm/irc_nas/11396/SRB5.0_intel-opencl-installation.pdf
 #      https://software.intel.com/en-us/articles/opencl-drivers#latest_CPU_runtime
-sudo apt-get install xz-utils
-mkdir intel-opencl
-tar -C intel-opencl -Jxf intel-opencl-r5.0-BUILD_ID.x86_64.tar.xz
-tar -C intel-opencl -Jxf intel-opencl-devel-r5.0-BUILD_ID.x86_64.tar.xz
-tar -C intel-opencl -Jxf intel-opencl-cpu-r5.0-BUILD_ID.x86_64.tar.xz
-sudo cp -R intel-opencl/* /
-sudo ldconfig
+apt-get install xz-utils
+curl https://s3-us-west-2.amazonaws.com/sif-static-files/analysis_algorithms/casoffinder_linux_dependencies_opencl.tar.gz -L -o casoffinder_linux_dependencies_opencl.tar.gz
+tar -C . -xvzf casoffinder_linux_dependencies_opencl.tar.gz
+mkdir -p intel-opencl
+tar -C intel-opencl -Jxf SRB5.0_linux64/intel-opencl-r5.0-63503.x86_64.tar.xz
+tar -C intel-opencl -Jxf SRB5.0_linux64/intel-opencl-devel-r5.0-63503.x86_64.tar.xz
+tar -C intel-opencl -Jxf SRB5.0_linux64/intel-opencl-cpu-r5.0-63503.x86_64.tar.xz
+cp -R intel-opencl/* /
+ldconfig
 
 echo "  -----> Installing casoffinder"
 curl https://s3-us-west-2.amazonaws.com/sif-static-files/analysis_algorithms/casoffinder_linux.tar.gz -L -o casoffinder.tar.gz
